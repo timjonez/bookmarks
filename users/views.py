@@ -1,12 +1,12 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, APIRouter
 from .models import Users
-from project.main import app
 
+router = APIRouter()
 
-RequestUser = Users.get_pydantic(exclude={"id", "is_active"})
-ResponseUser = Users.get_pydantic(exclude={"password": ...})
+RequestUser = Users.get_pydantic(exclude={"id", "is_active", "is_admin", "joined_date"})
+ResponseUser = Users.get_pydantic(exclude={"password"})
 
-@app.post("/account/create/", response_model=ResponseUser)
+@router.post("/account/create/", response_model=ResponseUser)
 async def create_user(user: RequestUser):
     user_dict = user.dict()
     email = user_dict.get("email")

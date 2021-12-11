@@ -1,7 +1,7 @@
 import ormar
 import datetime
 import sqlalchemy
-from project.db import BaseMeta
+from bookmarker.db import BaseMeta
 
 
 class Users(ormar.Model):
