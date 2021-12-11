@@ -5,8 +5,6 @@ from sqlalchemy import pool
 
 from alembic import context
 from project.db import BaseMeta
-
-#Import all models here
 from users.models import Users
 from bookmarks.models import Bookmarks
 
