@@ -1,13 +1,8 @@
 from fastapi import FastAPI
-import os
-import sys
+import uvicorn
 
-#Add directory to system path
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(BASE_DIR)
-
-from .db import database
-
+from bookmarker.db import database
+from users.views import router
 
 
 app = FastAPI()
@@ -21,3 +16,14 @@ async def startup():
 async def shutdown():
     if database.is_connected:
         await database.disconnect()
+
+app.include_router(router)
+
+
+@app.get('/')
+async def home():
+    return {"message": "this is a test"}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
