@@ -7,6 +7,8 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 alembic = "*"
+pyjwt = "*"
+bcrypt = "*"
 
 [dev-packages]
 
@@ -15,3 +17,6 @@ python_version = "3.9"
 
 [packages.ormar]
 extras = [ "sqlite",]
+
+[packages.pydantic]
+extras = [ "dotenv",]
