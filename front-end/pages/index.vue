@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello Bookmarker</h1>
+  <h1>Home Page</h1>
 </template>
 
 <script>
