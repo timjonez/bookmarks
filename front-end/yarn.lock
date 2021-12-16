@@ -1559,6 +1559,11 @@
     "@typescript-eslint/types" "5.7.0"
     eslint-visitor-keys "^3.0.0"
 
+"@vue-icons/feather@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@vue-icons/feather/-/feather-1.0.19.tgz#59db985854b8a104b7d38176746743b0941517f7"
+  integrity sha512-hqVn8AltoNjBwBZaB+WaG4Qo2TdQ/nwlBPua+TZgGc4g9f3Fi+S/hM9ol5k4oMBUux+HvQMYOtt+m93sLc5VjQ==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
@@ -9191,6 +9196,11 @@ vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+
+vue-awesome@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-4.3.1.tgz#3d5684a931714277c3015e024f35e231e4265fa3"
+  integrity sha512-8FRCtO12pNDp2o2XKVIc7HApMFrws42rR9+AiDYjW6lsHbhMy0ygvhaByNEGlQSbp2gb3ZZkeV0UJxKdur5c1Q==
 
 vue-client-only@^2.0.0:
   version "2.1.0"
