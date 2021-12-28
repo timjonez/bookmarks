@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 import uvicorn
+import bookmarker
 
 from bookmarker.db import database
-from users.views import router
+from users.views import router as user_router
+from bookmarks.views import router as bookmark_router
 
 
 app = FastAPI()
@@ -17,7 +19,8 @@ async def shutdown():
     if database.is_connected:
         await database.disconnect()
 
-app.include_router(router)
+app.include_router(user_router)
+app.include_router(bookmark_router)
 
 
 @app.get('/')
