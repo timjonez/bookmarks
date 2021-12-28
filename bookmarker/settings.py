@@ -6,6 +6,7 @@ class SettingsClass(BaseSettings):
     app_name: str = "Bookmarker"
     admin_email: str = "admin@bookmarker.com"
     secret_key: str = "this-is-a-secret"
+    salt_rounds = 10
 
     class Config:
         env_file = ".env"
