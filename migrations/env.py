@@ -4,9 +4,9 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from users.models import User
+from bookmarks.models import Bookmark
 from bookmarker.db import BaseMeta
-from users.models import Users
-from bookmarks.models import Bookmarks
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
