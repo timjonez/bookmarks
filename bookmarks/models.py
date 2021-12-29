@@ -1,15 +1,13 @@
 import ormar
-import datetime
-import sqlalchemy
 from bookmarker.db import BaseMeta
-from users.models import Users
+from users.models import User
 
 
-class Bookmarks(ormar.Model):
+class Bookmark(ormar.Model):
     class Meta(BaseMeta):
         tablename = "bookmarks"
     
     id: int = ormar.Integer(primary_key=True, autoincrement=True)
     title: str = ormar.String(max_length=128)
     url: str = ormar.String(max_length=254)
-    user: Users = ormar.ForeignKey(Users, related_name="bookmarks")
+    user: User = ormar.ForeignKey(User, nullable=False)
