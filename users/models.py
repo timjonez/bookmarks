@@ -5,9 +5,10 @@ import sqlalchemy
 from bookmarker.db import BaseMeta
 from bookmarker.settings import settings
 from datetime import datetime, timedelta, timezone
+from pydantic import BaseModel
 
 
-class Users(ormar.Model):
+class User(ormar.Model):
     class Meta(BaseMeta):
         tablename = "users"
     
@@ -18,9 +19,9 @@ class Users(ormar.Model):
     is_admin: bool = ormar.Boolean(default=False)
     joined_date: datetime = ormar.DateTime(server_default=sqlalchemy.func.now())
 
-    async def create(self, *args, **kwargs):
+    async def save(self, *args, **kwargs):
         self.password = await self.hash_password(self.password)
-        return await self.save(*args, **kwargs)
+        return await super().save(*args, **kwargs)
 
     async def password_is_valid(self, password):
         return bcrypt.checkpw(password.encode(), self.password.encode())
@@ -33,3 +34,17 @@ class Users(ormar.Model):
 
     async def hash_password(self, raw_password):
         return bcrypt.hashpw(raw_password.encode(), bcrypt.gensalt(rounds=settings.salt_rounds))
+
+
+class BaseUserModel(BaseModel):
+    email: str
+
+class UserWriteModel(BaseUserModel):
+    password: str
+
+class UserReadModel(BaseUserModel):
+    id: int
+    is_active: bool
+    is_admin: bool
+    joined_date: datetime
+    bookmarks: list
