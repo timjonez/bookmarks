@@ -1,25 +1,19 @@
-from fastapi import HTTPException, APIRouter, Request, Depends
-from users.models import Users
-from users.views import ResponseUser
-from .models import Bookmarks
-from typing import List
+from fastapi import APIRouter, Depends
+from users.models import User
+from .models import Bookmark
 from users.helpers import is_authorized
+from typing import List
 
 router = APIRouter()
 
-RequestBookmark = Bookmarks.get_pydantic(exclude={"id","user"})
-ResponseBookmark = Bookmarks.get_pydantic(exclude={"user__password"})
+RequestBookmark = Bookmark.get_pydantic(exclude={"user"})
 
-@router.post("/bookmark/create", response_model=ResponseBookmark)
-async def create_user(bookmark: RequestBookmark, user_data: dict = Depends(is_authorized)):
-    user = await Users.objects.get_or_none(email=user_data)
-    dict_bookmark = bookmark.dict()
-    dict_bookmark['user'] = user
-    new_bookmark = await Bookmarks.objects.create(**dict_bookmark)
-    user = await Users.objects.get_or_none(email=user_data)
-    return new_bookmark
+@router.post("/bookmark/create", response_model=RequestBookmark)
+async def create_bookmark(bookmark: RequestBookmark, user_email: str = Depends(is_authorized)):
+    user = await User.objects.get(email=user_email)
+    return await Bookmark(user=user, **bookmark.dict()).save()
 
-@router.get("/bookmarks")
-async def get_bookmarks(user_data: dict = Depends(is_authorized)):
-    user = await Users.objects.get_or_none(email="timjonez@protonmail.com")
+@router.get("/bookmarks", response_model=List[RequestBookmark])
+async def get_user_bookmarks(user_email: str = Depends(is_authorized)):
+    user = await User.objects.get(email=user_email)
     return await user.bookmarks.all()
