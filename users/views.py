@@ -1,5 +1,5 @@
 from fastapi import HTTPException, APIRouter, Request, Depends
-from .models import User, UserWriteModel, UserReadModel
+from .models import User, UserWriteModel, UserReadModel, LoginSchema
 from typing import List
 from .helpers import is_authorized
 from pydantic import BaseModel
@@ -24,7 +24,7 @@ async def get_users(id: int, request: Request, user: dict = Depends(is_authorize
         raise HTTPException(status_code=404, detail="User not found")
     return await User.objects.get(id=id)
 
-@router.post("/account/login/")
+@router.post("/account/login/", response_model=LoginSchema)
 async def create_user(user: UserWriteModel):
     user_dict = user.dict()
     email = user_dict.get("email")
@@ -32,5 +32,5 @@ async def create_user(user: UserWriteModel):
     if user:
         token = await user.login(user_dict.get("password"))
         if token is not None:
-            return {"token": token}
+            return LoginSchema(token=token)
     raise HTTPException(status_code=400, detail="Credentials provided are invalid")
