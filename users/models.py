@@ -48,3 +48,6 @@ class UserReadModel(BaseUserModel):
     is_admin: bool
     joined_date: datetime
     bookmarks: list
+
+class LoginSchema(BaseModel):
+    token: str
