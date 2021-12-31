@@ -4,9 +4,23 @@ import uvicorn
 from bookmarker.db import database
 from users.views import router as user_router
 from bookmarks.views import router as bookmark_router
+from .settings import pub_settings
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI(**pub_settings.dict())
 
-app = FastAPI()
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def startup():
