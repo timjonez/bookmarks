@@ -1,9 +1,13 @@
 from pydantic import BaseSettings
 
 
-class SettingsClass(BaseSettings):
+class PublicSettings(BaseSettings):
     # These are defaults that can be override with a .env file
-    app_name: str = "Bookmarker"
+    title: str = "Bookmarker"
+    openapi_url: str = "/openapi.json"
+    version = "1.0.0"
+
+class PrivateSettings(PublicSettings):
     admin_email: str = "admin@bookmarker.com"
     secret_key: str = "this-is-a-secret"
     salt_rounds = 10
@@ -11,4 +15,5 @@ class SettingsClass(BaseSettings):
     class Config:
         env_file = ".env"
 
-settings = SettingsClass()
+settings = PrivateSettings()
+pub_settings = PublicSettings()
