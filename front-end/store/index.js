@@ -38,6 +38,30 @@ export const actions = {
       })
     }
   },
+  async createUser ({ commit }, payload) {
+    try {
+      await axios.post(
+        BASEURL + '/account/create/',
+        {
+          email: payload.email,
+          password: payload.password
+        }
+      )
+      commit('addMessage', {
+        id: null,
+        title: 'Successfully Created Account',
+        details: 'You have successfully create an account. Login to get started',
+        type: 'success'
+      })
+    } catch (error) {
+      commit('addMessage', {
+        id: null,
+        title: 'Error',
+        details: error.response.data.detail,
+        type: 'error'
+      })
+    }
+  },
   removeMessage ({ commit, state }, payload) {
     commit('removeMessage', payload)
   },
