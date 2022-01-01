@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NuxtLink to="/">Home</NuxtLink>
     <h1>Login</h1>
     <form method="post" @submit.prevent="login">
       <label for="email">Email</label>
