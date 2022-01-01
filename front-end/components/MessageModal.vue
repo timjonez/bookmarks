@@ -7,9 +7,13 @@
         exclude: [],
         handler: 'removeMessageWithoutId'
       }">
-      <h1 id="msgTitle">{{ message.title }}</h1>
-      <p id="msgDetails">{{ message.details }}</p>
-      <button class="bg-white" @click="removeMessage(message.id)">Ok</button>
+      <div class="grid justify-end pr-1">
+        <button class="text-white font-black" @click="removeMessage(message.id)">X</button>
+      </div>
+      <div class="p-5 pt-0">
+        <h1 id="msgTitle">{{ message.title }}</h1>
+        <p id="msgDetails">{{ message.details }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -59,14 +63,15 @@ export default {
 
 .modal {
   position: relative;
-  padding: 1rem 2rem;
+  padding: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .bg-error {
-  background-color: rgba(255, 0, 0, 0.75);
+  background-color: rgba(255, 0, 0, 0.9);
 }
 
 .bg-success {
-  background-color: rgba(0, 133, 0, 0.75);
+  background-color: rgba(0, 133, 0, 0.9);
 }
 </style>
