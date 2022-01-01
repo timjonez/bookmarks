@@ -12,7 +12,7 @@ async def create_user(user: UserWriteModel):
     email = user_dict.get("email")
     if not await User.objects.get_or_none(email=email):
         return await User(**user_dict).save()
-    raise HTTPException(status_code=400, detail="Email already registered")
+    raise HTTPException(status_code=400, detail="An account with this email is already registered")
 
 @router.get("/users", response_model=List[UserReadModel])
 async def get_users():
