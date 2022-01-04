@@ -9,7 +9,7 @@ router = APIRouter()
 
 RequestBookmark = Bookmark.get_pydantic(exclude={"user", "id"})
 ResponseBookmark = Bookmark.get_pydantic(exclude={"user"})
-ResponseBookmarkUserId = Bookmark.get_pydantic(include={"id", "title", "url", "user__id"})
+ResponseBookmarkUserId = Bookmark.get_pydantic(include={"id", "title", "url", "favicon_url",  "user__id"})
 
 @router.post("/bookmark/create/", response_model=ResponseBookmark)
 async def create_bookmark(bookmark: RequestBookmark, user: User = Depends(authorization)):
