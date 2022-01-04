@@ -1,7 +1,7 @@
 <template>
   <div>
     <a v-if="!bookmark.editing" :href="bookmark.url" class="bookmark-list-item" target="_blank">
-      <img class="favicon" :src="bookmark.icon" alt="">
+      <img class="favicon" :src="bookmark.favicon_url" alt="">
       <p>{{ bookmark.title }}</p>
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" @click.prevent="editBookmark(bookmark)">Edit</button>
@@ -9,7 +9,7 @@
       </div>
     </a>
     <ValidationProvider v-else method="post" class="bookmark-list-item">
-      <img class="favicon" :src="bookmark.icon" alt="">
+      <img class="favicon" :src="bookmark.favicon_url" alt="">
       <input type="text" :value="bookmark.title" name="title" @change="saveBookmark">
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" type="submit">Save</button>
