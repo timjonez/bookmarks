@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 fastapi = "*"
 alembic = "*"
+validators = "*"
 
 [dev-packages]
 
