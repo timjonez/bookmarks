@@ -1,8 +1,8 @@
 """Create user and bookmark modals
 
-Revision ID: c560527c3e24
+Revision ID: b9fcf2ca5166
 Revises: 
-Create Date: 2022-01-03 19:34:41.481721
+Create Date: 2022-01-03 21:02:01.687814
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c560527c3e24'
+revision = 'b9fcf2ca5166'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=128), nullable=False),
     sa.Column('url', sa.String(length=254), nullable=False),
-    sa.Column('favicon_url', sa.String(length=254), nullable=False),
+    sa.Column('favicon_url', sa.String(length=254), nullable=True),
     sa.Column('user', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user'], ['users.id'], name='fk_bookmarks_users_id_user'),
     sa.PrimaryKeyConstraint('id')
