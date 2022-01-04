@@ -1,4 +1,12 @@
 from pydantic import BaseSettings
+from password_validator import PasswordValidator
+
+password_validator = PasswordValidator()
+password_validator.min(8)\
+    .has().uppercase()\
+    .has().lowercase()\
+    .has().digits()\
+    .has().no().spaces()\
 
 
 class PublicSettings(BaseSettings):
