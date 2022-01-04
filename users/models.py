@@ -1,11 +1,12 @@
 import jwt
 import bcrypt
 import ormar
+import validators
 import sqlalchemy
 from bookmarker.db import BaseMeta
-from bookmarker.settings import settings
+from bookmarker.settings import settings, password_validator
 from datetime import datetime, timedelta, timezone
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class User(ormar.Model):
@@ -39,8 +40,20 @@ class User(ormar.Model):
 class BaseUserModel(BaseModel):
     email: str
 
+    @validator('email')
+    def email_is_valid(cls, value):
+        if validators.email(value):
+            return value
+        raise ValueError("Email must be a valid email address")
+
 class UserWriteModel(BaseUserModel):
     password: str
+
+    @validator('password')
+    def password_is_valid(cls, value):
+        if password_validator.validate(value):
+            return value
+        raise ValueError("Password is not valid")
 
 class UserReadModel(BaseUserModel):
     id: int
