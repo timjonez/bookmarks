@@ -16,6 +16,11 @@ class Bookmark(ormar.Model):
     favicon_url: HttpUrl = ormar.String(max_length=254, nullable=True)
     user: User = ormar.ForeignKey(User, nullable=False)
 
+    async def save(self, *args, **kwargs):
+        if self.favicon_url is None:
+            self.favicon_url = f"{self.url}/favicon.ico"
+        return await super().save(*args, **kwargs)
+
     @validator('url')
     def url_is_valid(cls, value):
         if validators.url(value):
