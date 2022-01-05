@@ -68,8 +68,30 @@ export const actions = {
   addMessage ({ commit }, message) {
     commit('addMessage', message)
   },
-  addBookmark ({ commit }, payload) {
-    commit('addBookmark', payload)
+  async addBookmark ({ commit, state }, payload) {
+    try {
+      const { data } = await axios.post(
+        BASEURL + '/bookmark/create/',
+        payload,
+        {
+          headers: { Authorization: state.auth.token }
+        }
+      )
+      commit('addBookmark', data)
+      commit('addMessage', {
+        id: null,
+        title: 'Success',
+        details: 'You have successfully added a bookmark',
+        type: 'success'
+      })
+    } catch (error) {
+      commit('addMessage', {
+        id: null,
+        title: 'Error',
+        details: error.response.data.detail,
+        type: 'error'
+      })
+    }
   },
   editBookmark (context, payload) {
     context.commit('editBookmark', payload)
