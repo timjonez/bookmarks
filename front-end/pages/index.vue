@@ -2,6 +2,7 @@
   <div>
     <h1>Home Page</h1>
     <bookmark-item v-for="bookmark in $store.state.bookmarks" :key="bookmark.id" :bookmark="bookmark" />
+    <add-bookmark />
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import axios from 'axios'
 import { mapActions } from 'vuex'
 import BookmarkItem from '../components/BookmarkItem.vue'
+import AddBookmark from '../components/AddBookmark.vue'
 import { BASEURL } from '../constants'
 
 export default {
   name: 'BookmarkList',
   components: {
-    BookmarkItem
+    BookmarkItem,
+    AddBookmark
   },
   methods: {
     ...mapActions(['addBookmark', 'addMessage'])
