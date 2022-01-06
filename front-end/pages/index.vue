@@ -20,9 +20,10 @@ export default {
     AddBookmark
   },
   methods: {
-    ...mapActions(['addBookmark', 'addMessage'])
+    ...mapActions(['appendBookmark', 'addMessage', 'removeAllBookmarks'])
   },
   async fetch () {
+    this.removeAllBookmarks()
     try {
       const { data } = await axios.get(
         BASEURL + '/bookmarks',
@@ -31,7 +32,7 @@ export default {
         }
       )
       data.forEach((bookmark) => {
-        this.addBookmark({
+        this.appendBookmark({
           ...bookmark,
           editing: false
         })
