@@ -8,33 +8,36 @@
         <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">X</button>
       </div>
     </a>
-    <ValidationProvider v-else method="post" class="bookmark-list-item">
+    <form v-else method="post" class="bookmark-list-item" @submit.prevent="updateBookmarkHelper">
       <img class="favicon" :src="bookmark.favicon_url" alt="">
-      <input type="text" :value="bookmark.title" name="title" @change="saveBookmark">
+      <input type="text" :value="bookmark.title" name="title">
+      <input type="url" :value="bookmark.url" name="url">
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" type="submit">Save</button>
         <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">X</button>
       </div>
-    </ValidationProvider>
+    </form>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import { ValidationProvider } from 'vee-validate'
 
 export default {
   name: 'BookmarkItem',
-  components: {
-    ValidationProvider
-  },
   props: {
     bookmark: Object
   },
   methods: {
-    ...mapActions(['editBookmark', 'deleteBookmark', 'saveBookmark']),
-    updateBookmark (e) {
-      this.$store.commit('saveBookmark', e.target.value)
+    ...mapActions(['editBookmark', 'deleteBookmark', 'saveBookmark', 'updateBookmark']),
+    updateBookmarkHelper ({ target }) {
+      console.log(target)
+      console.log(this.bookmark)
+      this.updateBookmark({
+        id: this.bookmark.id,
+        title: target.title.value,
+        url: target.url.value
+      })
     }
   }
 }
