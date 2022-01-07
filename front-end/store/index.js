@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Vue from 'vue'
 import { BASEURL } from '../constants'
 
 export const state = () => ({
@@ -11,6 +12,14 @@ export const state = () => ({
   messages: [],
   bookmarks: []
 })
+
+export const getters = {
+  getBookmarkById: (state) => {
+    return (id) => {
+      return state.bookmarks.find(item => item.id === id)
+    }
+  }
+}
 
 export const actions = {
   async login (context, payload) {
@@ -177,10 +186,10 @@ export const actions = {
 export const mutations = {
   updateBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
-    state.bookmarks[bookmarkIndex] = {
+    Vue.set(state.bookmarks, bookmarkIndex, {
       ...bookmark,
       editing: false
-    }
+    })
   },
   editBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
