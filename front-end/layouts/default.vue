@@ -22,5 +22,8 @@ export default {
 </script>
 
 <style>
+input {
+  border: solid 1px;
+}
 
 </style>
