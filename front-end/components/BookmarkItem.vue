@@ -26,15 +26,18 @@ import { mapActions } from 'vuex'
 export default {
   name: 'BookmarkItem',
   props: {
-    bookmark: Object
+    bookmarkId: Number
+  },
+  computed: {
+    bookmark () {
+      return this.$store.getters.getBookmarkById(this.bookmarkId)
+    }
   },
   methods: {
-    ...mapActions(['editBookmark', 'deleteBookmark', 'saveBookmark', 'updateBookmark']),
-    updateBookmarkHelper ({ target }) {
-      console.log(target)
-      console.log(this.bookmark)
-      this.updateBookmark({
-        id: this.bookmark.id,
+    ...mapActions(['editBookmark', 'deleteBookmark', 'updateBookmark']),
+    async updateBookmarkHelper ({ target }) {
+      await this.updateBookmark({
+        id: this.bookmarkId,
         title: target.title.value,
         url: target.url.value
       })
