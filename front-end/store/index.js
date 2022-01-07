@@ -68,6 +68,27 @@ export const actions = {
   addMessage ({ commit }, message) {
     commit('addMessage', message)
   },
+  appendBookmark ({ commit }, payload) {
+    commit('addBookmark', payload)
+  },
+  async getBookmark ({ commit, state }, bookmarkId) {
+    try {
+      await axios.get(
+        BASEURL + `/bookmark/${bookmarkId}/`,
+        {
+          headers: { Authorization: state.auth.token }
+        }
+      )
+      commit('getBookmark', bookmarkId)
+    } catch (error) {
+      commit('addMessage', {
+        id: null,
+        title: 'Error',
+        details: error.response.data.detail,
+        type: 'error'
+      })
+    }
+  },
   async addBookmark ({ commit, state }, payload) {
     try {
       const { data } = await axios.post(
@@ -96,15 +117,71 @@ export const actions = {
   editBookmark (context, payload) {
     context.commit('editBookmark', payload)
   },
+  async updateBookmark ({ commit, state }, payload) {
+    try {
+      const { data } = await axios.patch(
+        BASEURL + `/bookmark/${payload.id}/`,
+        payload,
+        {
+          headers: { Authorization: state.auth.token }
+        }
+      )
+      commit('updateBookmark', data)
+      commit('addMessage', {
+        id: null,
+        title: 'Success',
+        details: 'You have successfully updated a bookmark',
+        type: 'success'
+      })
+    } catch (error) {
+      commit('addMessage', {
+        id: null,
+        title: 'Error',
+        details: error.response.data.detail,
+        type: 'error'
+      })
+    }
+  },
   saveBookmark (context, payload) {
     context.commit('saveBookmark', payload.target.name)
   },
-  deleteBookmark (context, payload) {
-    console.log(payload)
+  async deleteBookmark ({ commit, state }, payload) {
+    try {
+      await axios.delete(
+        BASEURL + `/bookmark/${payload.id}/`,
+        {
+          headers: { Authorization: state.auth.token }
+        }
+      )
+      commit('deleteBookmark', payload)
+      commit('addMessage', {
+        id: null,
+        title: 'Success',
+        details: 'You have successfully deleted a bookmark',
+        type: 'success'
+      })
+    } catch (error) {
+      commit('addMessage', {
+        id: null,
+        title: 'Error',
+        details: error.response.data.detail,
+        type: 'error'
+      })
+    }
+  },
+  removeAllBookmarks ({ commit }) {
+    commit('removeAllBookmarks')
   }
 }
 
 export const mutations = {
+  updateBookmark (state, bookmark) {
+    const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
+    state.bookmarks[bookmarkIndex] = {
+      ...bookmark,
+      editing: false
+    }
+  },
   editBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
     state.bookmarks[bookmarkIndex].editing = !state.bookmarks[bookmarkIndex].editing
@@ -124,6 +201,15 @@ export const mutations = {
   },
   addBookmark (state, bookmark) {
     state.bookmarks.push(bookmark)
+  },
+  deleteBookmark (state, bookmark) {
+    console.log(state.bookmarks.length)
+    const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
+    state.bookmarks.splice(bookmarkIndex, 1)
+    console.log(state.bookmarks.length)
+  },
+  removeAllBookmarks (state) {
+    state.bookmarks = []
   },
   saveBookmark (state, bookmark) {
     console.log(bookmark)
