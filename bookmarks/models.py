@@ -18,7 +18,7 @@ class Bookmark(ormar.Model):
 
     async def save(self, *args, **kwargs):
         if self.favicon_url is None:
-            self.favicon_url = f"{self.url}/favicon.ico"
+            self.favicon_url = f"https://www.google.com/s2/favicons?domain={self.url}"
         return await super().save(*args, **kwargs)
 
     @validator('url')
