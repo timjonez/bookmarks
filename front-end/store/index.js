@@ -151,9 +151,6 @@ export const actions = {
       })
     }
   },
-  saveBookmark (context, payload) {
-    context.commit('saveBookmark', payload.target.name)
-  },
   async deleteBookmark ({ commit, state }, payload) {
     try {
       await axios.delete(
@@ -212,16 +209,11 @@ export const mutations = {
     state.bookmarks.push(bookmark)
   },
   deleteBookmark (state, bookmark) {
-    console.log(state.bookmarks.length)
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
     state.bookmarks.splice(bookmarkIndex, 1)
-    console.log(state.bookmarks.length)
   },
   removeAllBookmarks (state) {
     state.bookmarks = []
-  },
-  saveBookmark (state, bookmark) {
-    console.log(bookmark)
   },
   setToken (state, token) {
     state.auth.token = token
