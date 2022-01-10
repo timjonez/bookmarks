@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .bookmark-list-item {
   display: flex;
   flex-direction: row;
