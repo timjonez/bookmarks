@@ -1,8 +1,8 @@
 <template>
-  <form method="post" @submit.prevent="addBookmarkerHelper">
+  <form method="post" @submit.prevent="addBookmarkerHelper" class="bookmark-list-item">
     <input type="text" v-model="title" name="title" placeholder="Name">
     <input type="text" v-model="url" name="url" placeholder="Url">
-    <div class="">
+    <div>
       <button class="bg-green-700 text-gray-100" type="submit">Save</button>
     </div>
   </form>
@@ -32,6 +32,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+input, div {
+  margin: 0.2rem 1rem;
+}
+
+input {
+  padding: 0.3rem 0.7rem;
+}
+
+button {
+  padding: 0.3rem 0.7rem;
+  background-color: #d62828ff;
+}
 
 </style>
