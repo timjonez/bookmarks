@@ -1,5 +1,5 @@
 <template>
-  <header class="px-4 py-3 bg-gray-200">
+  <header class="px-4 py-3">
     <nav class="flex justify-between">
       <nuxt-link to="/" class="">
         <h1>Bookmarker</h1>
@@ -17,3 +17,11 @@ export default {
   name: 'NavBar'
 }
 </script>
+
+<style scoped>
+header {
+  background-color: #003049ff;
+  color: #eae2b7;
+}
+
+</style>
