@@ -190,7 +190,8 @@ export const mutations = {
   },
   editBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
-    state.bookmarks[bookmarkIndex].editing = !state.bookmarks[bookmarkIndex].editing
+    bookmark.editing = !bookmark.editing
+    Vue.set(state.bookmarks, bookmarkIndex, bookmark)
   },
   addMessage (state, message) {
     message.id = state.messages.length + 1
