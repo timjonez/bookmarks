@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Create Account</h1>
-    <form method="post" @submit.prevent="createValidUser">
+    <form method="post" class="card" @submit.prevent="createValidUser">
+      <h1 class="text-4xl">Create Account</h1>
       <label for="email">Email</label>
       <input type="email" name="email" placeholder="Email"> <br>
       <label for="password">Password</label>
@@ -39,6 +39,36 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div {
+  height: 100%;
+  display: grid;
+}
 
+form {
+  align-self: center;
+  justify-self: center;
+}
+
+h1, label {
+  color: #003049ff;
+}
+
+input {
+  padding: 0.7rem 1.3rem;
+  min-width: 30vw;
+  border-radius: 0.35rem;
+  border: rgb(204, 205, 207)solid 1px;
+}
+
+label {
+  padding-top: 0.7rem;
+}
+
+button {
+  margin-top: 2rem;
+  padding: 0.7rem 1.3rem;
+  background-color: #d62828ff;
+  width: 50%;
+}
 </style>
