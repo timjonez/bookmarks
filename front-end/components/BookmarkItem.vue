@@ -2,7 +2,7 @@
   <div>
     <a v-if="!bookmark.editing" :href="bookmark.url" class="bookmark-list-item" target="_blank">
       <img class="favicon" :src="bookmark.favicon_url" alt="">
-      <p>{{ bookmark.title }}</p>
+      <p class="ml-3">{{ bookmark.title }}</p>
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" @click.prevent="editBookmark(bookmark)">Edit</button>
         <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">X</button>
@@ -53,6 +53,7 @@ export default {
   padding:  .4rem;
   background-color: rgb(232, 232, 232);
   margin: .5rem;
+  align-items: center;
 }
 
 .bookmark-list-item p {
@@ -61,10 +62,11 @@ export default {
 
 .bookmark-actions {
   margin-left: auto;
+  align-self: center;
 }
 
 .bookmark-actions button {
-  padding:  2px 10px;
+  padding: 0.3rem 0.7rem;
 }
 
 .favicon {
@@ -73,4 +75,8 @@ export default {
   align-self: center;
 }
 
+input {
+  margin: 0.2rem 1rem;
+  padding: 0.3rem 0.7rem;
+}
 </style>
