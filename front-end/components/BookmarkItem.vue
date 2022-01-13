@@ -14,7 +14,7 @@
       <input type="url" :value="bookmark.url" name="url">
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" type="submit">Save</button>
-        <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">X</button>
+        <button class="bg-red-600 text-gray-100" @click.prevent="editBookmark(bookmark)">Cancel</button>
       </div>
     </form>
   </div>
