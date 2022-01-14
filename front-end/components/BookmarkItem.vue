@@ -4,8 +4,12 @@
       <img class="favicon" :src="bookmark.favicon_url" alt="">
       <p class="ml-3">{{ bookmark.title }}</p>
       <div class="bookmark-actions">
-        <button class="bg-green-700 text-gray-100" @click.prevent="editBookmark(bookmark)">Edit</button>
-        <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">X</button>
+        <button class="bg-green-700 text-gray-100" @click.prevent="editBookmark(bookmark)">
+          <v-icon name="edit" />
+        </button>
+        <button class="bg-red-600 text-gray-100" @click.prevent="deleteBookmark(bookmark)">
+          <v-icon name="trash" />
+        </button>
       </div>
     </a>
     <form v-else method="post" class="bookmark-list-item" @submit.prevent="updateBookmarkHelper">
@@ -13,8 +17,14 @@
       <input type="text" :value="bookmark.title" name="title">
       <input type="url" :value="bookmark.url" name="url">
       <div class="bookmark-actions">
-        <button class="bg-green-700 text-gray-100" type="submit">Save</button>
-        <button class="bg-red-600 text-gray-100" @click.prevent="editBookmark(bookmark)">Cancel</button>
+        <button class="bg-green-700 text-gray-100" type="submit">
+          <v-icon name="save" />
+          Save
+        </button>
+        <button class="bg-red-600 text-gray-100" @click.prevent="editBookmark(bookmark)">
+          <v-icon name="window-close" />
+          Cancel
+        </button>
       </div>
     </form>
   </div>
@@ -47,6 +57,11 @@ export default {
 </script>
 
 <style>
+.fa-icon {
+  height: 1rem;
+  width: auto;
+}
+
 .bookmark-list-item {
   display: flex;
   flex-direction: row;
