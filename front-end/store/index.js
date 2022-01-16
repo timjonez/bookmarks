@@ -47,6 +47,9 @@ export const actions = {
       })
     }
   },
+  logout ({ commit }) {
+    commit('removeToken')
+  },
   async createUser ({ commit }, payload) {
     try {
       await axios.post(
@@ -219,5 +222,10 @@ export const mutations = {
   setToken (state, token) {
     state.auth.token = token
     state.auth.userLoggedIn = true
+  },
+  removeToken (state) {
+    state.auth.token = null
+    state.auth.userLoggedIn = false
+    state.bookmarks = []
   }
 }
