@@ -4,7 +4,10 @@
       <nuxt-link to="/" class="">
         <h1>Bookmarker</h1>
       </nuxt-link>
-      <div class="">
+      <div class="" v-if="$store.state.auth.userLoggedIn">
+        <button @click.prevent="logout">Logout</button>
+      </div>
+      <div class="" v-else>
         <nuxt-link to="/login">Login</nuxt-link>
         <nuxt-link to="/register">Signup</nuxt-link>
       </div>
@@ -13,8 +16,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  methods: {
+    ...mapActions(['logout'])
+  }
 }
 </script>
 
@@ -22,6 +30,10 @@ export default {
 header {
   background-color: #003049ff;
   color: #eae2b7;
+}
+
+a {
+  margin: 0px 0.2rem;
 }
 
 </style>
