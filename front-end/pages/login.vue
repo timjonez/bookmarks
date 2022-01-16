@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form method="post" @submit.prevent="login" class="card">
+    <form method="post" @submit.prevent="loginHelper" class="card">
       <h1 class="text-4xl">Log In</h1>
       <label for="email">Email</label>
       <input type="email" name="email" placeholder="Email"> <br>
@@ -17,7 +17,14 @@ import { mapActions } from 'vuex'
 export default {
   name: 'userLogin',
   methods: {
-    ...mapActions(['login'])
+    ...mapActions(['login']),
+    async loginHelper (payload) {
+      await this.login(payload)
+      if (this.$store.state.auth.userLoggedIn) {
+        payload.target.email.value = ''
+        payload.target.password.value = ''
+      }
+    }
   }
 }
 </script>
