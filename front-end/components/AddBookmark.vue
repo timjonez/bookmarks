@@ -1,5 +1,5 @@
 <template>
-  <form method="post" @submit.prevent="addBookmarkerHelper" class="bookmark-list-item">
+  <form v-show="$store.state.auth.userLoggedIn" method="post" @submit.prevent="addBookmarkerHelper" class="bookmark-list-item">
     <input type="text" v-model="title" name="title" placeholder="Name">
     <input type="text" v-model="url" name="url" placeholder="Url">
     <div>
