@@ -24,6 +24,7 @@ class Bookmark(ormar.Model):
     url: HttpUrl = ormar.String(max_length=254)
     favicon_url: HttpUrl = ormar.String(max_length=254, nullable=True)
     user: User = ormar.ForeignKey(User, nullable=False)
+    folder: Folder = ormar.ForeignKey(Folder)
 
     async def save(self, *args, **kwargs):
         if self.favicon_url is None:
