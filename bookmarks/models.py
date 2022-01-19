@@ -6,6 +6,15 @@ import validators
 from typing import Optional
 
 
+class Folder(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "folders"
+
+    id: int = ormar.Integer(primary_key=True, autoincrement=True)
+    name: str = ormar.String(max_length=128)
+    user: User = ormar.ForeignKey(User, nullable=False)
+
+
 class Bookmark(ormar.Model):
     class Meta(BaseMeta):
         tablename = "bookmarks"
