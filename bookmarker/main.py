@@ -4,6 +4,7 @@ import uvicorn
 from bookmarker.db import database
 from users.views import router as user_router
 from bookmarks.views import router as bookmark_router
+from folders.views import router as folder_router
 from .settings import pub_settings
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -34,6 +35,7 @@ async def shutdown():
 
 app.include_router(user_router)
 app.include_router(bookmark_router)
+app.include_router(folder_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
