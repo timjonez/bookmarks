@@ -56,23 +56,3 @@ async def delete_bookmark(id: int, user: User = Depends(authorization)):
             return SuccessResponse(detail="Bookmark successfully deleted")
         raise HTTPException(status_code=401, detail="Not authorized")
     raise HTTPException(status_code=404, detail="Bookmark not found")
-
-RequestFolder = Folder.get_pydantic(include={"name", "bookmarks"}, exclude={"bookmarks__user"})
-ResponseFolder = Folder.get_pydantic(exclude={"user", "bookmarks__user"})
-
-@router.post("/folder/create/", response_model=ResponseFolder)
-async def create_folder(folder: RequestFolder, user: User = Depends(authorization)):
-    return await Folder(user=user, **folder.dict()).save()
-
-@router.get("/folders", response_model=List[ResponseFolder])
-async def get_user_folders(user: User = Depends(authorization)):
-    return await user.folders.all()
-
-@router.get("/folder/{id}", response_model=ResponseFolder)
-async def get_folder(id: int, user: User = Depends(authorization)):
-    folder = await Folder.objects.get_or_none(id=id)
-    if folder:
-        if user.id == folder.user.id:
-            return folder
-        raise HTTPException(status_code=401, detail="Not authorized")
-    raise HTTPException(status_code=404, detail="Folder not found")
