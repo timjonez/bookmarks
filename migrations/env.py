@@ -5,7 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 from users.models import User
-from bookmarks.models import Bookmark, Folder
+from bookmarks.models import Bookmark
+from folders.models import Folder
 from bookmarker.db import BaseMeta
 
 # this is the Alembic Config object, which provides
