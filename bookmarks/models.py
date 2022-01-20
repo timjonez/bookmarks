@@ -1,18 +1,10 @@
 import ormar
 from bookmarker.db import BaseMeta
-from users.models import User
 from pydantic import BaseModel, HttpUrl, validator
 import validators
 from typing import Optional
-
-
-class Folder(ormar.Model):
-    class Meta(BaseMeta):
-        tablename = "folders"
-
-    id: int = ormar.Integer(primary_key=True, autoincrement=True)
-    name: str = ormar.String(max_length=128)
-    user: User = ormar.ForeignKey(User, nullable=False)
+from users.models import User
+from folders.models import Folder
 
 
 class Bookmark(ormar.Model):
