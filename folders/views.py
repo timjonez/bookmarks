@@ -21,7 +21,7 @@ async def get_user_folders(user: User = Depends(authorization)):
 
 @router.get("/folder/{id}", response_model=ResponseFolder)
 async def get_folder(id: int, user: User = Depends(authorization)):
-    folder = await Folder.objects.get_or_none(id=id)
+    folder = await Folder.objects.select_related("bookmarks").get_or_none(id=id)
     if folder:
         if user.id == folder.user.id:
             return folder
