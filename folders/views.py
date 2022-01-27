@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from bookmarker.generic_response import SuccessResponse
 from users.helpers import authorization
+from bookmarks.models import Bookmark
 from users.models import User
 from .models import Folder
 
@@ -37,6 +38,38 @@ async def update_folder(id: int, folder: PatchFolder, user: User = Depends(autho
             return await db_folder.update(**update_data)
         raise HTTPException(status_code=401, detail="Not authorized")
     raise HTTPException(status_code=404, detail="Folder not found")
+
+@router.post("/folder/{id}/add/{bookmark_id}", response_model=ResponseFolder)
+async def add_to_folder(id: int, bookmark_id: int, user: User = Depends(authorization)):
+    db_folder = await Folder.objects.get_or_none(id=id)
+    if not db_folder:
+        raise HTTPException(status_code=404, detail="Folder not found")
+
+    bookmark = await Bookmark.objects.get_or_none(id=bookmark_id)
+    if not bookmark:
+        raise HTTPException(status_code=404, detail="Bookmark not found")
+
+    if user.id != db_folder.user.id or user.id != bookmark.user.id:
+        raise HTTPException(status_code=401, detail="Not authorized")
+
+    await db_folder.bookmarks.add(bookmark)
+    return db_folder
+
+@router.post("/folder/{id}/remove/{bookmark_id}", response_model=ResponseFolder)
+async def remove_from_folder(id: int, bookmark_id: int, user: User = Depends(authorization)):
+    db_folder = await Folder.objects.get_or_none(id=id)
+    if not db_folder:
+        raise HTTPException(status_code=404, detail="Folder not found")
+
+    bookmark = await db_folder.bookmarks.get_or_none(id=bookmark_id)
+    if not bookmark:
+        raise HTTPException(status_code=404, detail="Bookmark not found")
+
+    if user.id != db_folder.user.id or user.id != bookmark.user.id:
+        raise HTTPException(status_code=401, detail="Not authorized")
+
+    await db_folder.bookmarks.remove(bookmark)
+    return db_folder
 
 @router.delete("/folder/{id}/", response_model=SuccessResponse)
 async def delete_folder(id: int, user: User = Depends(authorization)):
