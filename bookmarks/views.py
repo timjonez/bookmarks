@@ -7,8 +7,8 @@ from typing import List
 
 router = APIRouter()
 
-RequestBookmark = Bookmark.get_pydantic(exclude={"user", "id"})
-ResponseBookmark = Bookmark.get_pydantic(exclude={"user"})
+RequestBookmark = Bookmark.get_pydantic(exclude={"user", "id", "folder"})
+ResponseBookmark = Bookmark.get_pydantic(exclude={"user", "folder"})
 ResponseBookmarkUserId = Bookmark.get_pydantic(include={"id", "title", "url", "favicon_url",  "user__id"})
 
 @router.post("/bookmark/create/", response_model=ResponseBookmark)
