@@ -10,7 +10,8 @@ export const state = () => ({
     token: null
   },
   messages: [],
-  bookmarks: []
+  bookmarks: [],
+  folders: []
 })
 
 export const getters = {
@@ -82,6 +83,9 @@ export const actions = {
   },
   appendBookmark ({ commit }, payload) {
     commit('addBookmark', payload)
+  },
+  appendFolder ({ commit }, payload) {
+    commit('addFolder', payload)
   },
   async getBookmark ({ commit, state }, bookmarkId) {
     try {
@@ -211,6 +215,9 @@ export const mutations = {
   },
   addBookmark (state, bookmark) {
     state.bookmarks.push(bookmark)
+  },
+  addFolder (state, folder) {
+    state.folders.push(folder)
   },
   deleteBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
