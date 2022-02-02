@@ -19,6 +19,11 @@ export const getters = {
     return (id) => {
       return state.bookmarks.find(item => item.id === id)
     }
+  },
+  getFolderById: (state) => {
+    return (id) => {
+      return state.folders.find(item => item.id === id)
+    }
   }
 }
 
