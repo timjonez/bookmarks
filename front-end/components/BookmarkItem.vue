@@ -1,7 +1,7 @@
 <template>
   <div>
     <a v-if="!bookmark.editing" :href="bookmark.url" class="bookmark-list-item" target="_blank">
-      <img class="favicon" :src="bookmark.favicon_url" alt="">
+      <img class="ml-3 favicon" :src="bookmark.favicon_url" alt="">
       <p class="ml-3">{{ bookmark.title }}</p>
       <div class="bookmark-actions">
         <button class="bg-green-700 text-gray-100" @click.prevent="editBookmark(bookmark)">
