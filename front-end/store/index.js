@@ -239,5 +239,6 @@ export const mutations = {
     state.auth.token = null
     state.auth.userLoggedIn = false
     state.bookmarks = []
+    state.folders = []
   }
 }
