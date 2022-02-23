@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="folder-container" target="_blank">
-      <div class="bookmark-list-item">
+      <div class="folder-item">
         <v-icon name="folder-open" class="ml-2" />
         <p class="ml-3">{{ folder.name }}</p>
         <button @click.prevent="getFolderItems">Open</button>
       </div>
-      <div class="bookmark-list-item">
+      <div>
         <bookmark-item v-for="bookmark in folder.bookmarks" :key="'fb'+bookmark.id" :bookmarkId="bookmark.id" />
       </div>
     </div>
@@ -60,11 +60,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .folder-container {
   padding:  .4rem;
   background-color: rgb(232, 232, 232);
   margin: .5rem;
+  align-items: center;
+}
+
+.folder-item {
+  display: flex;
+  flex-direction: row;
+  padding:  .4rem;
+  background-color: rgb(232, 232, 232);
   align-items: center;
 }
 
