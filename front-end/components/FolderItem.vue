@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['appendFolder']),
+    ...mapActions(['appendFolder', 'appendFolderItem']),
     async getFolderItems () {
       try {
         const { data } = await axios.get(
@@ -40,8 +40,8 @@ export default {
             headers: { Authorization: this.$store.state.auth.token }
           }
         )
-        data.forEach((folder) => {
-          this.appendFolder(folder)
+        data.bookmarks.forEach((folder) => {
+          this.appendFolderItem(folder)
         })
       } catch (error) {
         let msg = error.response.data.detail
