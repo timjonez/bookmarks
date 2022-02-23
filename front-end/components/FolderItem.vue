@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div class="bookmark-list-item" target="_blank">
-      <v-icon name="folder-open" class="ml-2" />
-      <p class="ml-3">{{ folder.name }}</p>
-      <button @click.prevent="getFolderItems">Open</button>
+    <div class="folder-container" target="_blank">
+      <div class="bookmark-list-item">
+        <v-icon name="folder-open" class="ml-2" />
+        <p class="ml-3">{{ folder.name }}</p>
+        <button @click.prevent="getFolderItems">Open</button>
+      </div>
+      <div class="bookmark-list-item">
+        <bookmark-item v-for="bookmark in folder.bookmarks" :key="'fb'+bookmark.id" :bookmarkId="bookmark.id" />
+      </div>
     </div>
   </div>
 </template>
@@ -12,7 +17,10 @@
 import axios from 'axios'
 import { mapActions } from 'vuex'
 import { BASEURL } from '../constants'
+import BookmarkItem from './BookmarkItem.vue'
+
 export default {
+  components: { BookmarkItem },
   name: 'FolderItem',
   props: {
     folderId: Number
@@ -53,5 +61,11 @@ export default {
 </script>
 
 <style>
+.folder-container {
+  padding:  .4rem;
+  background-color: rgb(232, 232, 232);
+  margin: .5rem;
+  align-items: center;
+}
 
 </style>
