@@ -92,6 +92,9 @@ export const actions = {
   appendFolder ({ commit }, payload) {
     commit('addFolder', payload)
   },
+  appendFolderItem ({ commit }, payload) {
+    commit('addFolderItem', payload)
+  },
   async getBookmark ({ commit, state }, bookmarkId) {
     try {
       await axios.get(
@@ -223,6 +226,10 @@ export const mutations = {
   },
   addFolder (state, folder) {
     state.folders.push(folder)
+  },
+  addFolderItem (state, folder) {
+    const index = state.folders.findIndex(item => item.id === folder.id)
+    state.folders[index].bookmarks.push(folder)
   },
   deleteBookmark (state, bookmark) {
     const bookmarkIndex = state.bookmarks.findIndex(item => item.id === bookmark.id)
