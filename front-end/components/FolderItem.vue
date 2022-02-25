@@ -3,7 +3,7 @@
     <div class="folder-container" target="_blank">
       <div class="folder-item">
         <v-icon name="folder-open" class="ml-2" />
-        <p class="ml-3">{{ folder.name }}</p>
+        <p class="mx-3">{{ folder.name }}</p>
         <button @click.prevent="getFolderItems">Open</button>
       </div>
       <div>
