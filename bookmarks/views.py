@@ -17,7 +17,7 @@ async def create_bookmark(bookmark: RequestBookmark, user: User = Depends(author
 
 @router.get("/bookmarks", response_model=List[ResponseBookmark])
 async def get_user_bookmarks(user: User = Depends(authorization)):
-    return await user.bookmarks.all()
+    return await user.bookmarks.filter(folder__isnull=True).all()
 
 @router.get("/bookmark/{id}", response_model=ResponseBookmarkUserId)
 async def get_bookmark(id: int, user: User = Depends(authorization)):
